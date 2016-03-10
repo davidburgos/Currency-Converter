@@ -4,8 +4,8 @@
               android:orientation="vertical"
               android:layout_margin="@dimen/item_layout_margin"
               android:layout_width="match_parent"
+              android:background="@android:drawable/list_selector_background"
               android:layout_height="wrap_content">
-
 
     <LinearLayout android:orientation="horizontal"
                   android:layout_height="wrap_content"
@@ -13,20 +13,22 @@
                   android:layout_gravity="center_vertical">
 
         <android.support.v7.widget.AppCompatTextView
-            android:layout_height="wrap_content"
-            android:layout_width="0dp"
             android:layout_weight="1"
-            android:textStyle="bold"
+            style="@style/AppTheme.labelStyle.Bold"
             android:gravity="end"
             android:text="@string/item_title"/>
 
         <android.support.v7.widget.AppCompatTextView
             android:id="@+id/TvCurrencyType"
-            android:layout_height="wrap_content"
-            android:layout_width="0dp"
-            android:layout_weight="3"
-            android:padding="10dp"
-            tools:text="COP"/>
+            tools:text="COP"
+            android:layout_weight="0.8"
+            style="@style/AppTheme.labelStyle"/>
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/TvCurrencyValue"
+            android:layout_weight="2.2"
+            style="@style/AppTheme.labelStyle.Italic"
+            tools:text="(0.45)"/>
 
     </LinearLayout>
 
@@ -36,19 +38,15 @@
                   android:layout_gravity="center_vertical">
 
         <android.support.v7.widget.AppCompatTextView
-            android:layout_height="wrap_content"
-            android:layout_width="0dp"
             android:layout_weight="1"
             android:gravity="end"
-            android:textStyle="bold"
+            style="@style/AppTheme.labelStyle.Bold"
             android:text="@string/item_value"/>
 
         <android.support.v7.widget.AppCompatTextView
             android:id="@+id/TvCurrencyAmount"
-            android:layout_height="wrap_content"
-            android:layout_width="0dp"
             android:layout_weight="3"
-            android:padding="10dp"
+            style="@style/AppTheme.labelStyle"
             tools:text="5.000"/>
 
     </LinearLayout>

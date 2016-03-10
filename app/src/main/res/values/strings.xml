@@ -4,5 +4,11 @@
     <string name="enter_amount">Enter amount:</string>
     <string name="currencyType">USD</string>
     <string name="item_title">Currency:</string>
-    <string name="item_value">Value:</string>
+    <string name="item_value">Total:</string>
+
+
+    <!--API Strings-->
+    <string name="BaseURL">http://api.fixer.io</string>
+    <string name="BaseCurrency">USD</string>
+
 </resources>

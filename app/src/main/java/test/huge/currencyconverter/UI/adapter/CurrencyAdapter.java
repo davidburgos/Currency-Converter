@@ -10,8 +10,8 @@ import java.util.ArrayList;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import test.huge.currencyconverter.API.model.Currency;
 import test.huge.currencyconverter.R;
+import test.huge.currencyconverter.rest.model.ItemRates;
 
 /**
  * Created by David Alejandro Burgos on 3/10/16 9:43 AM.
@@ -20,7 +20,9 @@ import test.huge.currencyconverter.R;
 
 public class CurrencyAdapter extends RecyclerView.Adapter<CurrencyAdapter.ViewHolder> {
 
-    private ArrayList<Currency> mDataset;
+    private ArrayList<ItemRates> mDataset;
+    private int quantity = 0;
+
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -37,7 +39,7 @@ public class CurrencyAdapter extends RecyclerView.Adapter<CurrencyAdapter.ViewHo
         }
     }
 
-    public CurrencyAdapter(ArrayList<Currency> myDataset) {
+    public CurrencyAdapter(ArrayList<ItemRates> myDataset) {
         mDataset = myDataset;
     }
 
@@ -52,10 +54,10 @@ public class CurrencyAdapter extends RecyclerView.Adapter<CurrencyAdapter.ViewHo
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
-        Currency currency = mDataset.get(position);
+        ItemRates rate = mDataset.get(position);
 
-        holder.mTvCurrencyAmount.setText(currency.getAmount());
-        holder.mTvCurrencyType.setText(currency.getCurrencyType());
+        holder.mTvCurrencyAmount.setText(rate.getAmount());
+        holder.mTvCurrencyType.setText(rate.getCurrencyType());
     }
 
     @Override
@@ -63,14 +65,31 @@ public class CurrencyAdapter extends RecyclerView.Adapter<CurrencyAdapter.ViewHo
         return mDataset.size();
     }
 
-    public void add(int position, Currency item) {
+    public void add(int position, ItemRates item) {
         mDataset.add(position, item);
         notifyItemInserted(position);
     }
 
-    public void remove(Currency item) {
+    public void remove(ItemRates item) {
         int position = mDataset.indexOf(item);
         mDataset.remove(position);
         notifyItemRemoved(position);
+    }
+
+    public void setData(ArrayList<ItemRates> currencies) {
+        this.mDataset = currencies;
+        notifyDataSetChanged();
+    }
+
+    public void refreshData() {
+
+        for (ItemRates item : mDataset) {
+            item.setResult(item.getAmountInt() * this.quantity);
+        }
+        notifyDataSetChanged();
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 }
