@@ -10,7 +10,7 @@ public class ItemRates {
     private String mCurrencyType;
     private String mAmount;
     private int mAmountInt;
-    private int mResult;
+    private Float mResult = 0F;
 
     public ItemRates() {
     }
@@ -24,12 +24,12 @@ public class ItemRates {
         return mAmount;
     }
 
-    public int getAmountInt() {
+    public Float getAmountInt() {
 
         if(this.getAmount() != null && !getAmount().isEmpty()){
-            return Integer.valueOf(getAmount());
+            return Float.valueOf(getAmount());
         }
-        return 0;
+        return 0F;
     }
 
     public void setAmount(String amount) {
@@ -44,11 +44,11 @@ public class ItemRates {
         mCurrencyType = currencyType;
     }
 
-    public void setResult(int result) {
+    public void setResult(Float result) {
         this.mResult = result;
     }
 
-    public int getResult() {
+    public Number getResult() {
         return mResult;
     }
 }

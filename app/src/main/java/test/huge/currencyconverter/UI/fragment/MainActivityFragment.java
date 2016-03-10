@@ -2,8 +2,11 @@ package test.huge.currencyconverter.UI.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,6 +41,9 @@ public class MainActivityFragment extends Fragment {
 
     @InjectView(R.id.RvCurrency)
     public RecyclerView mRecyclerView;
+
+    @InjectView(R.id.EtQuantity)
+    public AppCompatEditText mEtQuantity;
 
     private CurrencyAdapter mAdapter;
 
@@ -112,5 +118,29 @@ public class MainActivityFragment extends Fragment {
         mRecyclerView.setLayoutManager(layoutManager);
         mAdapter = new CurrencyAdapter(mCurrencies);
         mRecyclerView.setAdapter(mAdapter);
+
+        mEtQuantity.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+                if(s != null && s.length() > 0){
+                    mAdapter.setQuantity(Integer.valueOf(s.toString()));
+                }
+                else{
+                    mAdapter.setQuantity(0);
+                }
+                mAdapter.refreshData();
+            }
+        });
     }
 }

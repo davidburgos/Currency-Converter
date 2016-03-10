@@ -21,12 +21,12 @@
         <android.support.v7.widget.AppCompatTextView
             android:id="@+id/TvCurrencyType"
             tools:text="COP"
-            android:layout_weight="0.8"
+            android:layout_weight="0.5"
             style="@style/AppTheme.labelStyle"/>
 
         <android.support.v7.widget.AppCompatTextView
             android:id="@+id/TvCurrencyValue"
-            android:layout_weight="2.2"
+            android:layout_weight="2.5"
             style="@style/AppTheme.labelStyle.Italic"
             tools:text="(0.45)"/>
 
@@ -44,7 +44,7 @@
             android:text="@string/item_value"/>
 
         <android.support.v7.widget.AppCompatTextView
-            android:id="@+id/TvCurrencyAmount"
+            android:id="@+id/TvCurrencyTotal"
             android:layout_weight="3"
             style="@style/AppTheme.labelStyle"
             tools:text="5.000"/>

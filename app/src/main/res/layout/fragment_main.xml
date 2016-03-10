@@ -23,6 +23,7 @@
             android:id="@+id/LlQuantity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:padding="@dimen/layout_padding"
             android:orientation="horizontal">
 
@@ -34,11 +35,13 @@
 
             <android.support.v7.widget.AppCompatEditText
                 android:id="@+id/EtQuantity"
-                android:layout_width="match_parent"
+                android:layout_width="@dimen/edit_text_quantity_width"
                 android:layout_height="wrap_content"
                 android:inputType="number"
-                android:layout_gravity="center"
+                android:maxLength="9"
+                android:layout_gravity="center_vertical"
                 />
+
          </LinearLayout>
 
         <android.support.v7.widget.RecyclerView

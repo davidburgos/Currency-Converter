@@ -10,5 +10,6 @@
     <!--API Strings-->
     <string name="BaseURL">http://api.fixer.io</string>
     <string name="BaseCurrency">USD</string>
+    <string name="button_text_calculate">Go</string>
 
 </resources>

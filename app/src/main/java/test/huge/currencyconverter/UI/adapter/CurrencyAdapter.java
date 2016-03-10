@@ -23,14 +23,16 @@ public class CurrencyAdapter extends RecyclerView.Adapter<CurrencyAdapter.ViewHo
     private ArrayList<ItemRates> mDataset;
     private int quantity = 0;
 
-
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        @InjectView(R.id.TvCurrencyAmount)
-        public AppCompatTextView mTvCurrencyAmount;
+        @InjectView(R.id.TvCurrencyTotal)
+        public AppCompatTextView mTvCurrencyTotal;
 
         @InjectView(R.id.TvCurrencyType)
         public AppCompatTextView mTvCurrencyType;
+
+        @InjectView(R.id.TvCurrencyValue)
+        public AppCompatTextView mTvCurrencyValue;
 
 
         public ViewHolder(View v) {
@@ -56,8 +58,9 @@ public class CurrencyAdapter extends RecyclerView.Adapter<CurrencyAdapter.ViewHo
 
         ItemRates rate = mDataset.get(position);
 
-        holder.mTvCurrencyAmount.setText(rate.getAmount());
         holder.mTvCurrencyType.setText(rate.getCurrencyType());
+        holder.mTvCurrencyValue.setText(rate.getAmount());
+        holder.mTvCurrencyTotal.setText(rate.getResult().toString());
     }
 
     @Override
