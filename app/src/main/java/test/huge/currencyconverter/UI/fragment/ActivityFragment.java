@@ -1,7 +1,6 @@
 package test.huge.currencyconverter.UI.fragment;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -27,14 +26,15 @@ import retrofit.client.Response;
 import test.huge.currencyconverter.R;
 import test.huge.currencyconverter.UI.adapter.CurrencyAdapter;
 import test.huge.currencyconverter.UI.base.BaseActivity;
+import test.huge.currencyconverter.UI.base.BaseFragment;
 import test.huge.currencyconverter.rest.ApiService;
 import test.huge.currencyconverter.rest.model.CurrencyResponse;
 import test.huge.currencyconverter.rest.model.ItemRates;
 import test.huge.currencyconverter.rest.model.Rates;
 
+public class ActivityFragment extends BaseFragment {
 
-public class ActivityFragment extends Fragment {
-
+    private static final String TAG = ActivityFragment.class.getSimpleName();
     private static final String CUR_GBP = "GBP";
     private static final String CUR_EUR = "EUR";
     private static final String CUR_JPY = "JPY";
@@ -48,7 +48,6 @@ public class ActivityFragment extends Fragment {
 
     private CurrencyAdapter mAdapter;
     private ApiService apiService;
-    private RestAdapter adapter;
 
     private ArrayList<ItemRates> mCurrencies = new ArrayList<>();
     private Integer mQuantity = 0;
@@ -80,7 +79,7 @@ public class ActivityFragment extends Fragment {
 
     private void initData() {
 
-        adapter = new RestAdapter.Builder()
+        RestAdapter adapter = new RestAdapter.Builder()
                 .setEndpoint(getString(R.string.BaseURL))
                 .setClient(new OkClient(getClient()))
                 .build();
@@ -114,6 +113,7 @@ public class ActivityFragment extends Fragment {
                         mCurrencies.add(itemRateEUR);
                         mCurrencies.add(itemRateJPY);
                         mCurrencies.add(itemRateBRL);
+
                         mAdapter.setQuantity(mQuantity);
                         mAdapter.setData(mCurrencies);
                     }
@@ -121,7 +121,7 @@ public class ActivityFragment extends Fragment {
 
                 @Override
                 public void failure(RetrofitError error) {
-                    Log.i("TEST", error.getMessage());
+                    Log.i(TAG, error.getMessage());
                     ((BaseActivity)getActivity()).Dialogs.ProgressDismiss();
                     ((BaseActivity) getActivity()).showErrorMessage(R.string.error_message_retrofit);
                 }
@@ -150,7 +150,6 @@ public class ActivityFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-
 
                 if(s != null && s.length() > 0){
                     mQuantity = Integer.valueOf(s.toString());
