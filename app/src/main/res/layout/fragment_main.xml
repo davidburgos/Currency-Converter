@@ -1,12 +1,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:orientation="vertical"
-                tools:context=".UI.fragment.MainActivityFragment"
-                tools:showIn="@layout/activity_main">
-
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:gravity="center"
+              android:orientation="vertical"
+              tools:context=".UI.fragment.ActivityFragment"
+              tools:showIn="@layout/activity_main">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -39,13 +38,13 @@
                 android:layout_height="wrap_content"
                 android:inputType="number"
                 android:maxLength="9"
-                android:layout_gravity="center_vertical"
-                />
+                android:layout_gravity="center_vertical"/>
 
          </LinearLayout>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/RvCurrency"
+            android:focusable="false"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 

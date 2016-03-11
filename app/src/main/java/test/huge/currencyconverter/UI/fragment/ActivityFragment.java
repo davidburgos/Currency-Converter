@@ -17,8 +17,8 @@ import com.squareup.okhttp.OkHttpClient;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
@@ -26,36 +26,49 @@ import retrofit.client.OkClient;
 import retrofit.client.Response;
 import test.huge.currencyconverter.R;
 import test.huge.currencyconverter.UI.adapter.CurrencyAdapter;
+import test.huge.currencyconverter.UI.base.BaseActivity;
 import test.huge.currencyconverter.rest.ApiService;
 import test.huge.currencyconverter.rest.model.CurrencyResponse;
 import test.huge.currencyconverter.rest.model.ItemRates;
 import test.huge.currencyconverter.rest.model.Rates;
 
 
-public class MainActivityFragment extends Fragment {
+public class ActivityFragment extends Fragment {
 
     private static final String CUR_GBP = "GBP";
     private static final String CUR_EUR = "EUR";
     private static final String CUR_JPY = "JPY";
     private static final String CUR_BRL = "BRL";
 
-    @InjectView(R.id.RvCurrency)
+    @Bind(R.id.RvCurrency)
     public RecyclerView mRecyclerView;
 
-    @InjectView(R.id.EtQuantity)
+    @Bind(R.id.EtQuantity)
     public AppCompatEditText mEtQuantity;
 
     private CurrencyAdapter mAdapter;
+    private ApiService apiService;
+    private RestAdapter adapter;
 
     private ArrayList<ItemRates> mCurrencies = new ArrayList<>();
+    private Integer mQuantity = 0;
 
-    public MainActivityFragment() {
+    public ActivityFragment() {
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initData();
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        View view = inflater.inflate(R.layout.fragment_main, container, false);
+        ButterKnife.bind(this, view);
+        initViews();
+        return view;
     }
 
     private OkHttpClient getClient() {
@@ -67,49 +80,54 @@ public class MainActivityFragment extends Fragment {
 
     private void initData() {
 
-        RestAdapter adapter = new RestAdapter.Builder()
+        adapter = new RestAdapter.Builder()
                 .setEndpoint(getString(R.string.BaseURL))
                 .setClient(new OkClient(getClient()))
                 .build();
 
-        ApiService apiService = adapter.create(ApiService.class);
+        apiService = adapter.create(ApiService.class);
 
-        apiService.getRates(getString(R.string.BaseCurrency), CUR_GBP + "," + CUR_EUR + "," + CUR_JPY + "," + CUR_BRL, new Callback<CurrencyResponse>() {
-            @Override
-            public void success(CurrencyResponse currencyResponse, Response response) {
-
-                if (response.getStatus() == 200 && currencyResponse != null) {
-
-                    Rates rates = currencyResponse.getRates();
-
-                    ItemRates itemRateGBP = new ItemRates(CUR_GBP, rates.getGBP().toString());
-                    ItemRates itemRateEUR = new ItemRates(CUR_EUR, rates.getEUR().toString());
-                    ItemRates itemRateJPY = new ItemRates(CUR_JPY, rates.getJPY().toString());
-                    ItemRates itemRateBRL = new ItemRates(CUR_BRL, rates.getBRL().toString());
-
-                    mCurrencies.clear();
-                    mCurrencies.add(itemRateGBP);
-                    mCurrencies.add(itemRateEUR);
-                    mCurrencies.add(itemRateJPY);
-                    mCurrencies.add(itemRateBRL);
-                    mAdapter.setData(mCurrencies);
-                }
-            }
-
-            @Override
-            public void failure(RetrofitError error) {
-                Log.i("TEST",error.getMessage());
-            }
-        });
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public void loadService() {
 
-        View view = inflater.inflate(R.layout.fragment_main, container, false);
-        ButterKnife.inject(this, view);
-        initViews();
-        return view;
+        if (mAdapter.getItemCount() <= 0) {
+            ((BaseActivity)getActivity()).Dialogs.ProgressDialog(R.string.progress_dialog_text);
+
+            apiService.getRates(getString(R.string.BaseCurrency), CUR_GBP + "," + CUR_EUR + "," + CUR_JPY + "," + CUR_BRL, new Callback<CurrencyResponse>() {
+                @Override
+                public void success(CurrencyResponse currencyResponse, Response response) {
+
+                    ((BaseActivity)getActivity()).Dialogs.ProgressDismiss();
+
+                    if (response.getStatus() == 200 && currencyResponse != null) {
+
+                        Rates rates = currencyResponse.getRates();
+
+                        ItemRates itemRateGBP = new ItemRates(CUR_GBP, rates.getGBP().toString());
+                        ItemRates itemRateEUR = new ItemRates(CUR_EUR, rates.getEUR().toString());
+                        ItemRates itemRateJPY = new ItemRates(CUR_JPY, rates.getJPY().toString());
+                        ItemRates itemRateBRL = new ItemRates(CUR_BRL, rates.getBRL().toString());
+
+                        mCurrencies.clear();
+                        mCurrencies.add(itemRateGBP);
+                        mCurrencies.add(itemRateEUR);
+                        mCurrencies.add(itemRateJPY);
+                        mCurrencies.add(itemRateBRL);
+                        mAdapter.setQuantity(mQuantity);
+                        mAdapter.setData(mCurrencies);
+                    }
+                }
+
+                @Override
+                public void failure(RetrofitError error) {
+                    Log.i("TEST", error.getMessage());
+                    ((BaseActivity)getActivity()).Dialogs.ProgressDismiss();
+                    ((BaseActivity) getActivity()).showErrorMessage(R.string.error_message_retrofit);
+                }
+            });
+        }
+
     }
 
     private void initViews() {
@@ -133,10 +151,13 @@ public class MainActivityFragment extends Fragment {
             @Override
             public void afterTextChanged(Editable s) {
 
+
                 if(s != null && s.length() > 0){
+                    mQuantity = Integer.valueOf(s.toString());
                     mAdapter.setQuantity(Integer.valueOf(s.toString()));
                 }
                 else{
+                    mQuantity = 0;
                     mAdapter.setQuantity(0);
                 }
                 mAdapter.refreshData();

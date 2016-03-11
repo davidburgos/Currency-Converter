@@ -5,11 +5,22 @@
     <string name="currencyType">USD</string>
     <string name="item_title">Currency:</string>
     <string name="item_value">Total:</string>
+    <string name="progress_dialog_text">Loading Info…</string>
 
+    <!--Default-->
+    <string name="default_dialog_title">@string/app_name</string>
+    <string name="default_yes_text">Yes</string>
+    <string name="default_ok_text">Ok</string>
+    <string name="default_no_text">No</string>
 
     <!--API Strings-->
     <string name="BaseURL">http://api.fixer.io</string>
     <string name="BaseCurrency">USD</string>
     <string name="button_text_calculate">Go</string>
+
+
+    <!--Error Messages-->
+    <string name="error_message_no_internet">There is no internet connection.</string>
+    <string name="error_message_retrofit">Looks like there is an error with the server\nTry later.</string>
 
 </resources>

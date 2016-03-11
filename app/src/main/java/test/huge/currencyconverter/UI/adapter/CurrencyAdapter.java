@@ -8,8 +8,8 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 import test.huge.currencyconverter.R;
 import test.huge.currencyconverter.rest.model.ItemRates;
 
@@ -25,19 +25,19 @@ public class CurrencyAdapter extends RecyclerView.Adapter<CurrencyAdapter.ViewHo
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        @InjectView(R.id.TvCurrencyTotal)
+        @Bind(R.id.TvCurrencyTotal)
         public AppCompatTextView mTvCurrencyTotal;
 
-        @InjectView(R.id.TvCurrencyType)
+        @Bind(R.id.TvCurrencyType)
         public AppCompatTextView mTvCurrencyType;
 
-        @InjectView(R.id.TvCurrencyValue)
+        @Bind(R.id.TvCurrencyValue)
         public AppCompatTextView mTvCurrencyValue;
 
 
         public ViewHolder(View v) {
             super(v);
-            ButterKnife.inject(this, v);
+            ButterKnife.bind(this, v);
         }
     }
 

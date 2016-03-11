@@ -6,5 +6,6 @@
     <dimen name="layout_padding">32dp</dimen>
     <dimen name="item_layout_margin">15dp</dimen>
     <dimen name="edit_text_quantity_width">100dp</dimen>
+    <dimen name="normal_text_size">16dp</dimen>
 
 </resources>

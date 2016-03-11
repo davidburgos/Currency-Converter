@@ -2,8 +2,15 @@
 <resources>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorPrimaryLight">#c6ff005a</color>
     <color name="colorAccent">#FF4081</color>
 
+
+    <color name="textColor">#000000</color>
+    <color name="textColorPrimary">@android:color/white</color>
+    <color name="textColorSecondary">#c9c9c9</color>
+    <color name="windowBackground">#dbdbdb</color>
+    <color name="navigationBarColor">#000000</color>
 
     <color name="value_text_color">#abaaaa</color>
 </resources>
